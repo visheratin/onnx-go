@@ -112,6 +112,8 @@ func generateConsOptsFromFloat32Tensor(tx *TensorProto) ([]tensor.ConsOpt, error
 		return []tensor.ConsOpt{tensor.WithBacking(backing)}, nil
 	case tx.FloatData != nil:
 		return []tensor.ConsOpt{tensor.WithBacking(tx.FloatData)}, nil
+	case tx.FloatData == nil && tx.RawData == nil:
+		return []tensor.ConsOpt{tensor.WithBacking([]float32{})}, nil
 	default:
 		return nil, errors.New("No data found")
 	}
